@@ -29,7 +29,8 @@ func BFS(g *Graph, start int) []int {
 		u, _ := queue.Dequeue()
 		order = append(order, u)
 
-		for _, v := range g.adj[u] {
+		for _, neighbor := range g.Adj[u] {
+			v := neighbor.To
 			if !visited[v] {
 				visited[v] = true
 				queue.Enqueue(v)
@@ -51,7 +52,8 @@ func DFS(g *Graph, start int) []int {
 		u, _ := stack.Pop()
 		order = append(order, u)
 
-		for _, v := range g.adj[u] {
+		for _, neighbor := range g.Adj[u] {
+			v := neighbor.To
 			if !visited[v] {
 				visited[v] = true
 				stack.Push(v)
@@ -67,7 +69,7 @@ func ConnectedComponents(g *Graph) (count int, comp map[int]int) {
 	comp = make(map[int]int)
 	count = 0
 
-	for v := range g.adj {
+	for v := range g.Adj {
 		if !visited[v] {
 			count++
 			componentVertices := DFSComponent(g, v, visited)
@@ -89,7 +91,8 @@ func DFSComponent(g *Graph, start int, visited map[int]bool) []int {
 		u, _ := stack.Pop()
 		order = append(order, u)
 
-		for _, v := range g.adj[u] {
+		for _, neighbor := range g.Adj[u] {
+			v := neighbor.To
 			if !visited[v] {
 				visited[v] = true
 				stack.Push(v)

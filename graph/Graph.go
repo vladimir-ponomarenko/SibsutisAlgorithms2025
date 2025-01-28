@@ -1,30 +1,92 @@
 package Graph
 
+// Рёбра с весом
+type Edge struct {
+	U int
+	V int
+	W int
+}
+
+// Граф
+// To: Соседняя вершина
+// Weight: Вес ребра, ведущего к соседней вершине
 type Graph struct {
-	adj map[int][]int
+	Adj map[int][]struct {
+		To     int
+		Weight int
+	}
+	edges []Edge
 }
 
 func NewGraph() *Graph {
-	return &Graph{adj: make(map[int][]int)}
+	return &Graph{
+		Adj: make(map[int][]struct {
+			To     int
+			Weight int
+		}),
+		edges: make([]Edge, 0),
+	}
 }
 
 // Добавляет ребро в граф
-func (g *Graph) AddEdge(u int, v int, undirected bool) {
-	g.adj[u] = append(g.adj[u], v)
+func (g *Graph) AddEdge(u int, v int, weight int, undirected bool) {
+	g.Adj[u] = append(g.Adj[u], struct {
+		To     int
+		Weight int
+	}{To: v, Weight: weight})
 	if undirected {
-		g.adj[v] = append(g.adj[v], u)
+		g.Adj[v] = append(g.Adj[v], struct {
+			To     int
+			Weight int
+		}{To: u, Weight: weight})
+	}
+
+	newEdge := Edge{U: u, V: v, W: weight}
+	g.edges = append(g.edges, newEdge)
+
+	if undirected {
+		reverseEdge := Edge{U: v, V: u, W: weight}
+		g.edges = append(g.edges, reverseEdge)
 	}
 }
 
 // Проверка на ребро в графе
 func (g *Graph) HasEdge(u int, v int) bool {
-	if g.adj[u] == nil {
+	if g.Adj[u] == nil {
 		return false
 	}
-	for i := 0; i < len(g.adj[u]); i++ {
-		if g.adj[u][i] == v {
+	for _, neighbor := range g.Adj[u] {
+		if neighbor.To == v {
 			return true
 		}
 	}
 	return false
+}
+
+// Возвращает список ребёр
+func (g *Graph) GetAllEdges() []Edge {
+	return g.edges
+}
+
+func (g *Graph) GetNeighbors(u int) []struct {
+	V int
+	W int
+} {
+	neighborsWithWeights := []struct {
+		V int
+		W int
+	}{}
+
+	if g.Adj[u] == nil {
+		return neighborsWithWeights
+	}
+
+	for _, neighbor := range g.Adj[u] {
+		neighborsWithWeights = append(neighborsWithWeights, struct {
+			V int
+			W int
+		}{V: neighbor.To, W: neighbor.Weight})
+	}
+
+	return neighborsWithWeights
 }

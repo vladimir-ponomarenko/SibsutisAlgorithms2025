@@ -1,19 +1,19 @@
 package Graph
 
 type DisjointSet struct {
-	parent []int // родитель i
-	size   []int // размер множества, корень - i
+	Parent []int
+	Size   []int
 }
 
 // Структура Disjoint Set Union
 func NewDisjointSet(n int) *DisjointSet {
 	ds := &DisjointSet{
-		parent: make([]int, n),
-		size:   make([]int, n),
+		Parent: make([]int, n),
+		Size:   make([]int, n),
 	}
 	for i := 0; i < n; i++ {
-		ds.parent[i] = i
-		ds.size[i] = 1
+		ds.Parent[i] = i
+		ds.Size[i] = 1
 	}
 
 	return ds
@@ -21,10 +21,10 @@ func NewDisjointSet(n int) *DisjointSet {
 
 // Находит корень множества
 func (ds *DisjointSet) Find(x int) int {
-	if ds.parent[x] != x {
-		ds.parent[x] = ds.Find(ds.parent[x])
+	if ds.Parent[x] != x {
+		ds.Parent[x] = ds.Find(ds.Parent[x])
 	}
-	return ds.parent[x]
+	return ds.Parent[x]
 }
 
 // true - множества объединены, иначе false
@@ -36,12 +36,12 @@ func (ds *DisjointSet) Union(x, y int) bool {
 		return false
 	}
 
-	if ds.size[rx] < ds.size[ry] {
-		ds.parent[rx] = ry
-		ds.size[ry] += ds.parent[rx]
+	if ds.Size[rx] < ds.Size[ry] {
+		ds.Parent[rx] = ry
+		ds.Size[ry] += ds.Parent[rx]
 	} else {
-		ds.parent[ry] = rx
-		ds.size[rx] += ds.parent[ry]
+		ds.Parent[ry] = rx
+		ds.Size[rx] += ds.Parent[ry]
 	}
 
 	return true
