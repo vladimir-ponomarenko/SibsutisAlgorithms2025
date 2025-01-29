@@ -34,7 +34,7 @@ func BellmanFord(g *Graph.Graph, start int) ([]int, []int, bool) {
 		for _, edge := range g.GetAllEdges() {
 			u, v, weight := edge.U, edge.V, edge.W
 
-			if u < n && v < n { // Added bounds check here
+			if u < n && v < n {
 				if dist[u] != math.MaxInt && dist[u]+weight < dist[v] {
 					dist[v] = dist[u] + weight
 					parent[v] = u

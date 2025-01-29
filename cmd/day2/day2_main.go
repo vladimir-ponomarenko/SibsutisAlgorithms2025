@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("--- DisjointSet Demo ---")
+	fmt.Println("--- DisjointSet ---")
 	ds := Graph.NewDisjointSet(6)
 	ds.Union(0, 1)
 	ds.Union(1, 2)

@@ -1,8 +1,8 @@
 package Graph
 
 type DisjointSet struct {
-	Parent []int
-	Size   []int
+	Parent []int // родитель i
+	Size   []int // размер множества, корень - i
 }
 
 // Структура Disjoint Set Union

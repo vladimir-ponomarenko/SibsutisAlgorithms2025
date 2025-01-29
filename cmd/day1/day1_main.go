@@ -9,19 +9,19 @@ func main() {
 
 	gCC := Graph.NewGraph()
 
-	gCC.AddEdge(0, 1, true)
-	gCC.AddEdge(1, 2, true)
+	gCC.AddEdge(0, 1, 1, true)
+	gCC.AddEdge(1, 2, 1, true)
 
-	gCC.AddEdge(4, 5, true)
-	gCC.AddEdge(5, 6, true)
+	gCC.AddEdge(4, 5, 1, true)
+	gCC.AddEdge(5, 6, 1, true)
 
 	g := Graph.NewGraph()
 
-	g.AddEdge(0, 1, false)
-	g.AddEdge(0, 2, false)
-	g.AddEdge(1, 3, false)
-	g.AddEdge(1, 4, false)
-	g.AddEdge(2, 5, false)
+	g.AddEdge(0, 1, 1, false)
+	g.AddEdge(0, 2, 1, false)
+	g.AddEdge(1, 3, 1, false)
+	g.AddEdge(1, 4, 1, false)
+	g.AddEdge(2, 5, 1, false)
 
 	fmt.Println("\n--- Проверка HasEdge ---")
 	fmt.Println("HasEdge(0, 1):", g.HasEdge(0, 1))
