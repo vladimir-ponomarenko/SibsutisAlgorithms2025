@@ -86,7 +86,6 @@ func (n *Node) Listen() {
 		if !n.Alive {
 			continue
 		}
-
 		switch msg.Kind {
 		case ElectionMsg:
 			n.HandleElection(msg)
@@ -94,7 +93,7 @@ func (n *Node) Listen() {
 			n.HandleOK(msg)
 		case CoordinatorMsg:
 			n.HandleCoordinator(msg)
-		case RingCoordinatorMsg: // Добавляем обработку нового типа сообщения
+		case RingCoordinatorMsg:
 			n.HandleRingCoordinator(msg)
 		case RingElectionMsg:
 			n.HandleRingElection(msg)
